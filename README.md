@@ -1,64 +1,56 @@
-# open-slide workspace
+# 我們的第一年 · 相本規劃 🤎
 
-Slides as React components. Each slide lives under `slides/<id>/index.tsx` and default-exports an array of page components. The `@open-slide/core` runtime handles layout, scaling, navigation, thumbnails, and fullscreen play mode — you just write the pages.
+一份**手做綁繩相本**的版面規劃 —— 給一週年紀念，男方做給女方。
+用 [open-slide](https://www.npmjs.com/package/@open-slide/core)（React 投影片）把每一頁的版型「視覺化」出來，
+之後可以**照著印照片、手寫文字、貼進實體相本**。
 
-## Getting started
+> 這份簡報只是「排版藍圖」，不是最終成品 —— 照片是佔位框，文字是手寫提示，等你填進真正的回憶。
+
+## 實體素材
+
+| 材質 | 數量 | 用途 |
+| --- | --- | --- |
+| 白色自黏 | ×1 | 封面、開場扉頁 |
+| 黑色自黏 | ×1 | 封底 |
+| 牛皮內頁 | ×7 | 主線故事（用 ①–⑤，⑥⑦ 備用） |
+| 黑色內頁 | ×4 | 高光時刻：濟州島、情書（用 ①–③，④ 備用） |
+
+- 每頁為 **1:1 正方形**。
+- 全書正反共 26 面，本規劃只用約 **19 面**，其餘刻意留白／備用。
+- **順序與材質都可自由調換** —— 這只是建議動線。
+
+## 簡報內容（共 20 面）
+
+1. **封面 / 使用說明 / 六種版型 / 整本故事線** —— 怎麼看這份規劃
+2. **逐頁範本（第 5–19 面）** —— 封面 → 開場白 → 我們的開始 → 第一次約會 → 那些日常 → 我最喜歡你的 → 濟州島（扉頁／風景／日記／美食／我們倆）→ 這一年時間軸 → 給你的一封信 → 未來·第二年 → 封底
+3. **備用與手做提醒** —— 印照片、選筆、圖文留白比例原則
+
+每一面都標示：材質、版型、**圖 / 文 / 留白比例**、📷 照片建議尺寸、✍️ 想寫的話開頭、✦ 手做提示。
+
+## 怎麼看
 
 ```bash
 pnpm install
 pnpm dev
 ```
 
-Then open the dev server and edit `slides/getting-started/index.tsx`, or create a new slide at `slides/<your-slide>/index.tsx`.
+開啟 `http://localhost:5173/s/anniversary-album-plan`（或首頁點卡片）。
 
-## Scripts
+- 方向鍵 / PageUp·PageDown 翻面
+- `F` 全螢幕播放，Esc 離開
 
-| Command | Description |
-| --- | --- |
-| `pnpm dev` | Start the dev server with hot reload. |
-| `pnpm build` | Build a static bundle you can deploy. |
-| `pnpm preview` | Preview the built bundle locally. |
+## 怎麼改
 
-## Authoring a slide
+slide 原始碼在 [`slides/anniversary-album-plan/index.tsx`](slides/anniversary-album-plan/index.tsx)。
+想加減頁面、換材質、調圖文比例、改字體配色，都改這一個檔案即可（存檔即熱更新）。
 
-```tsx
-// slides/my-slide/index.tsx
-import type { Page, SlideMeta } from '@open-slide/core';
+也可在 dev server 用 Inspect 模式點選元素、留下 `@slide-comment` 註記，再請 Claude Code 套用。
 
-const Cover: Page = () => (
-  <div style={{ width: '100%', height: '100%' }}>Hello</div>
-);
+## 技術
 
-export const meta: SlideMeta = { title: 'My slide' };
-export default [Cover] satisfies Page[];
-```
+以 `@open-slide/core` 建置；每頁渲染進固定 **1920×1080** 畫布，方形相本頁以置中卡片呈現。
+框架使用說明見 [`CLAUDE.md`](./CLAUDE.md)。
 
-Every page renders into a fixed **1920 × 1080** canvas — design with absolute pixel values. Put images, videos, and fonts under `slides/<id>/assets/` and import them directly.
+---
 
-See [`CLAUDE.md`](./CLAUDE.md) for the full authoring guide.
-
-## Navigation
-
-- Arrow keys / PageUp / PageDown move between pages.
-- `F` enters fullscreen play mode; Esc exits.
-- In play mode: Space / → next, ← prev.
-
-## Claude Code integration
-
-This workspace ships with Claude Code skills preconfigured under `.claude/skills/` and `.agents/skills/`. Ask Claude Code to "make slides about X" and the `create-slide` skill takes over. Use `apply-comments` to iterate via inspector-style markers inside your source.
-
-## Config
-
-Optional `open-slide.config.ts` at the workspace root:
-
-```ts
-import type { OpenSlideConfig } from '@open-slide/core';
-
-const openSlideConfig: OpenSlideConfig = {
-  port: 5173,
-};
-
-export default openSlideConfig;
-```
-
-Supported fields: `slidesDir`, `port`.
+*慢慢做，這份心意她會收一輩子。♡*
